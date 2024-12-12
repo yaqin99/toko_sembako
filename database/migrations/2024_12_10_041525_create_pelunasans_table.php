@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('pelunasans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('supplier_id');
+            $table->date('tempo_piutang');
+            $table->date('tanggal_pembayaran');
+            $table->string('total_pembayaran');
             $table->timestamps();
         });
     }

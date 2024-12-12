@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('pembelians', function (Blueprint $table) {
             $table->id();
             $table->foreignId('supplier_id');
+            $table->integer('stok_pembelian');
+            $table->string('total_biaya');
+            $table->date('tanggal_pembelian');
             $table->timestamps();
         });
     }
