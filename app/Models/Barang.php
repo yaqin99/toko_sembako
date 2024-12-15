@@ -14,4 +14,7 @@ class Barang extends Model
     public function etalase(){
         return $this->belongsTo(Etalase::class , 'barang_id');
      }
+    public function pembelian(){
+        return $this->belongsTo(Pembelian::class , 'barang_id');
+     }
 }

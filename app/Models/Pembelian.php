@@ -13,4 +13,7 @@ class Pembelian extends Model
     public function supplier(){
         return $this->hasMany(Supplier::class );
      }
+    public function barang(){
+        return $this->hasMany(Barang::class );
+     }
 }
