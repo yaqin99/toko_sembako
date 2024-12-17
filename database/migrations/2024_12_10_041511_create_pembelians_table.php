@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('supplier_id');
             $table->foreignId('barang_id');
+            $table->foreignId('pelunasan_id');
             $table->integer('stok_pembelian');
             $table->string('total_biaya');
             $table->date('tanggal_pembelian');

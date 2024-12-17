@@ -14,4 +14,7 @@ class Pelunasan extends Model
     public function supplier(){
         return $this->hasMany(Supplier::class );
      }
+    public function pembelian(){
+        return $this->belongsTo(Pembelian::class );
+     }
 }

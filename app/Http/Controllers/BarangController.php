@@ -6,8 +6,7 @@ use App\Models\Barang;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
+
 
 
 class BarangController extends Controller

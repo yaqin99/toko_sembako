@@ -122,7 +122,6 @@
     <script src="/admin/vendor/global/global.min.js"></script>
     <script src="/admin/js/quixnav-init.js"></script>
     <script src="/admin/js/custom.min.js"></script>
-    <script src="/admin/js/modal.js"></script>
     
 
 
@@ -134,6 +133,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 
     <script src="/admin/js/pages/barang.js"></script>
+    <script src="/admin/js/pages/supplier.js"></script>
    
 </body>
 

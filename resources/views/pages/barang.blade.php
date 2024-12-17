@@ -32,5 +32,4 @@
    
 </div>
 @include('modals.addBarang')
-<script src="admin/js/pages/barang.js"></script>
 @endsection

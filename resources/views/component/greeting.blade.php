@@ -6,6 +6,9 @@
             @if ($pages == 'barang')
             <li class="breadcrumb-item"><button onclick="showAddBarang()" data-bs-toggle="modal" class="btn btn-secondary text-left text-light"><i class="bi bi-plus-circle"></i> Tambah Barang</button></li>
             
+            @elseif ($pages == 'supplier')
+            <li class="breadcrumb-item"><button onclick="showAddSupplier()" data-bs-toggle="modal" class="btn btn-secondary text-left text-light"><i class="bi bi-plus-circle"></i> Tambah Supplier</button></li>
+
             @endif
         </ol>
     </div>

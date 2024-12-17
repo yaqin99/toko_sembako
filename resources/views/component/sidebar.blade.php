@@ -7,8 +7,8 @@
             <li><a href="/" aria-expanded="false"><i class="bi bi-house"></i>
                 <span class="nav-text">Dashboard</span></a>
             </li>
-            <li><a href="/guru" aria-expanded="false"><i class="bi bi-person-fill"></i><span
-                class="nav-text">Data Barang</span></a>
+            <li><a href="/supplier" aria-expanded="false"><i class="bi bi-person-fill"></i><span
+                class="nav-text">Data Supplier</span></a>
              </li>
             
             
