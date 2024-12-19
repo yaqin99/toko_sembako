@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,9 @@ Route::post('/addBarang', [BarangController::class , 'addBarang']);
 Route::get('/supplier', [SupplierController::class , 'index']);
 Route::get('/deleteSupplier/{id}', [SupplierController::class , 'deleteSupplier']);
 Route::post('/addSupplier', [SupplierController::class , 'addSupplier']);
+
+
+Route::get('/pembelian', [PembelianController::class , 'index']);
+Route::get('/getSingleBarang/{id}', [PembelianController::class , 'getSingle']);
+Route::get('/deletePembelian/{id}', [PembelianController::class , 'deletePembelian']);
+Route::post('/addPembelian', [PembelianController::class , 'addPembelian']);

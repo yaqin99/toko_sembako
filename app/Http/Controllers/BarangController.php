@@ -98,11 +98,5 @@ class BarangController extends Controller
       $deltete = Barang::where('id' , $id)->delete();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Barang $Barang)
-    {
-        //
-    }
+   
 }

@@ -11,12 +11,13 @@ class Pembelian extends Model
     protected $guarded = ['id'];
 
     public function supplier(){
-        return $this->hasMany(Supplier::class );
+        return $this->belongsTo(Supplier::class );
      }
     public function barang(){
-        return $this->hasMany(Barang::class );
+        return $this->belongsTo(Barang::class );
      }
     public function pelunasan(){
         return $this->hasOne(Pelunasan::class );
      }
+   
 }

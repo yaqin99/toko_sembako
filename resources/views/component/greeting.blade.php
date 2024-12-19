@@ -8,6 +8,8 @@
             
             @elseif ($pages == 'supplier')
             <li class="breadcrumb-item"><button onclick="showAddSupplier()" data-bs-toggle="modal" class="btn btn-secondary text-left text-light"><i class="bi bi-plus-circle"></i> Tambah Supplier</button></li>
+            @elseif ($pages == 'pembelian')
+            <li class="breadcrumb-item"><button onclick="showAddPembelian()" data-bs-toggle="modal" class="btn btn-secondary text-left text-light"><i class="bi bi-plus-circle"></i> Tambah Pembelian</button></li>
 
             @endif
         </ol>

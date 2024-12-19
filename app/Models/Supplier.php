@@ -15,6 +15,6 @@ class Supplier extends Model
         return $this->belongsToMany(Pelunasan::class , 'supplier_id');
      }
     public function pembelian(){
-        return $this->belongsToMany(Pembelian::class , 'supplier_id');
+        return $this->hasMany(Pembelian::class , 'supplier_id');
      }
 }

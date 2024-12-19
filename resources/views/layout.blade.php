@@ -134,6 +134,7 @@
 
     <script src="/admin/js/pages/barang.js"></script>
     <script src="/admin/js/pages/supplier.js"></script>
+    <script src="/admin/js/pages/pembelian.js"></script>
    
 </body>
 
