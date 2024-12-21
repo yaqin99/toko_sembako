@@ -61,21 +61,25 @@ function deleteBarang(id){
     
 }
 
-function getBarang(){
-    $("#tabel_barang").dataTable().fnDestroy();
+function getPelunasan(){
+    $("#tabel_piutang").dataTable().fnDestroy();
 
-   var table = $('#tabel_barang').DataTable({
+   var table = $('#tabel_piutang').DataTable({
      processing: true,
      serverSide: true,
-     ajax: "/",
+     ajax: "/piutang",
      columns: [
          {data: null,"sortable": false, 
             render: function (data, type, row, meta) {
             return meta.row + meta.settings._iDisplayStart + 1;
            }  },
-         {data: 'nama_barang', name: 'nama_barang'},
-         {data: 'harga_beli', name: 'harga_beli'},
-         {data: 'stok', name: 'stok'},
+         {data: 'supplier', name: 'supplier'},
+         {data: 'tempo_piutang', name: 'tempo_piutang'},
+         {data: 'jumlah_piutang', name: 'jumlah_piutang'},
+         {data: 'total_pembayaran', name: 'total_pembayaran'},
+         {data: 'sisa_piutang', name: 'sisa_piutang'},
+         {data: 'tanggal_pembayaran', name: 'tanggal_pembayaran'},
+         {data: 'status', name: 'status'},
          {data: 'action', name: 'action', orderable: false, searchable: false},
      ]
  });
@@ -103,7 +107,7 @@ function editBarang(row){
 }
 
    $(document).ready(function() {     
-    getBarang();
+    getPelunasan();
 
     $('#addBarangButton').click(function(e) {
         e.preventDefault();

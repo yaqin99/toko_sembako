@@ -12,7 +12,7 @@ class Pelunasan extends Model
     protected $guarded = ['id'];
 
     public function supplier(){
-        return $this->hasMany(Supplier::class );
+        return $this->belongsTo(Supplier::class );
      }
     public function pembelian(){
         return $this->belongsTo(Pembelian::class );

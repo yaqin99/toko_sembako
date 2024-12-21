@@ -1,7 +1,7 @@
 <div class="modal fade none-border" id="addSupplier">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header d-flex justify-content-center">
                 <h4 class="modal-title"><strong id="judulFormSupplier">Tambah Data Supplier</strong></h4>
             </div>
             <div class="modal-body">

@@ -77,6 +77,8 @@ function getPembelian(){
          {data: 'nama_supplier', name: 'nama_supplier'},
          {data: 'stok_pembelian', name: 'stok_pembelian'},
          {data: 'total_biaya', name: 'total_biaya'},
+         {data: 'total_pembayaran', name: 'total_pembayaran'},
+         {data: 'tipe_pembayaran', name: 'tipe_pembayaran'},
          {data: 'tanggal_pembelian', name: 'tanggal_pembelian'},
          {data: 'action', name: 'action', orderable: false, searchable: false},
      ]
@@ -88,21 +90,67 @@ function showAddPembelian(){
     $('#tanggal_pembelian').val('');
     $('#nama_barang').val(0).trigger('change');
     $('#nama_supplier').val(0).trigger('change');
-
+    $('#idPembelian').val('');
+    $('#biaya').val('');
+    $('#bayar').val('');
+    $('#tanggal_pembelian').val('');
+    $('#metode').val('1').trigger('change');
     $('#addPembelian').modal('show');
 }
 
 function editPembelian(row){
     let data = JSON.parse(row);
+    if (data.pelunasan == null) {
+      $('#tempo').val('');
+    } else {
+      $('#tempo').val(data.pelunasan.tempo_piutang);
 
+    }
     $('#idPembelian').val(data.id);
     $('#stok').val(data.stok_pembelian);
     $('#tanggal_pembelian').val(data.tanggal_pembelian);
+    $('#biaya').val(data.total_biaya);
+    $('#bayar').val(data.total_pembayaran);
+    $('#metode').val(data.tipe_pembayaran).trigger('change');
     $('#nama_barang').val(data.barang_id).trigger('change');
     $('#nama_supplier').val(data.supplier_id).trigger('change');
 
     $('#addPembelian').modal('show');
 
+}
+
+function show(){
+  let metode = $('#metode').val();
+  if (metode == '2') {
+    $('#piutang').attr('hidden',false);
+  } else {
+    $('#piutang').attr('hidden',true);
+
+  }
+}
+
+function getBiaya(){
+  let nama_barang = $('#nama_barang').val();
+  let stok = $('#stok').val();
+
+  $.ajax({
+
+    url: `/getSingleBarang/${nama_barang}`,
+    type: "GET",
+    cache: false,
+    
+    processData: false,
+    contentType: false,
+    success:function(response){
+        $('#biaya').val(stok*response.harga_beli);
+    },
+    error:function(error){
+        
+      
+
+    }
+
+});
 }
 
    $(document).ready(function() {     
@@ -117,13 +165,16 @@ function editPembelian(row){
         //define variable
         let idPembelian = $('#idPembelian').val();
         let nama_supplier = $('#nama_supplier').val();
-        let nama_barang = $('#nama_barang').val();
+        let bayar = $('#bayar').val();
+        let biaya = $('#biaya').val();
         let stok = $('#stok').val();
         let tanggal_pembelian = $('#tanggal_pembelian').val();
         let harga = 0 ; 
-
+        let nama_barang = $('#nama_barang').val();
+        let metode = $('#metode').val();
+        let piutang = $('#tempo').val();
         
-        await $.ajax({
+       await $.ajax({
     
           url: `/getSingleBarang/${nama_barang}`,
           type: "GET",
@@ -134,7 +185,6 @@ function editPembelian(row){
           success:function(response){
            
               harga = response.harga_beli ; 
-
           },
           error:function(error){
               
@@ -147,15 +197,7 @@ function editPembelian(row){
         
 
         let fix = harga*stok ; 
-        // let data = {
-        //   idPembelian : idPembelian , 
-        //   nama_supplier : nama_supplier , 
-        //   nama_barang : nama_barang , 
-        //   stok : stok , 
-        //   tanggal_pembelian : tanggal_pembelian , 
-        //   total_biaya : fix , 
-        // }
-            
+                  
         let formData = new FormData();
         formData.append("idPembelian", idPembelian);
         formData.append("nama_supplier", nama_supplier);
@@ -163,6 +205,9 @@ function editPembelian(row){
         formData.append("stok", stok);
         formData.append("tanggal_pembelian", tanggal_pembelian);
         formData.append("total_biaya", fix);
+        formData.append("bayar", bayar);
+        formData.append("metode", metode);
+        formData.append("piutang", piutang);
 
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -201,6 +246,8 @@ function editPembelian(row){
                           $('#nama_supplier').val('');
                           $('#nama_barang').val('');
                           $('#stok').val('');
+                          $('#tanggal_pembelian').val('');
+                          $('#metode').val('1').trigger('change');
                           $('#tanggal_pembelian').val('');
                         
                           getPembelian()

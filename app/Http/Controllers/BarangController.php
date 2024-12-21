@@ -73,14 +73,14 @@ class BarangController extends Controller
      
         if(request('idBarang') == ''){
             $add = Barang::create([
-                'nama_barang' => request('nama_barang'), 
+                'nama_barang' => request('nama_barang_tambah'), 
                 'harga_beli' => request('harga_beli'), 
                 'stok' => 0, 
               ]);
               
         } else {
             $add = Barang::where('id' , request('idBarang'))->update([
-                'nama_barang' => request('nama_barang'), 
+                'nama_barang' => request('nama_barang_tambah'), 
                 'harga_beli' => request('harga_beli'), 
                 'stok' => request('stok'), 
               ]);

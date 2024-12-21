@@ -5,7 +5,7 @@
             
            
             <li><a href="/" aria-expanded="false"><i class="bi bi-box"></i>
-                <span class="nav-text">Data Barang</span></a>
+                <span class="nav-text">Barang</span></a>
             </li>
             <li><a href="/supplier" aria-expanded="false"><i class="bi bi-person-fill"></i><span
                 class="nav-text">Supplier</span></a>
@@ -17,6 +17,9 @@
             
             <li><a href="/etalase" aria-expanded="false"><i class="bi bi-border-all"></i><span
                  class="nav-text">Etalase</span></a>
+            </li>
+            <li><a href="/piutang" aria-expanded="false"><i class="bi bi-wallet2"></i><span
+                 class="nav-text">Piutang</span></a>
             </li>
         </ul>
     </div>

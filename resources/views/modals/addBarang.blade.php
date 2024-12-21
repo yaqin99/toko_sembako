@@ -1,7 +1,7 @@
 <div class="modal fade none-border" id="addBarang">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header d-flex justify-content-center">
                 <h4 class="modal-title"><strong id="judulFormBarang">Tambah Data Barang</strong></h4>
             </div>
             <div class="modal-body">
@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Nama Barang</label>
-                            <input class="form-control form-white" id="nama_barang" type="text" name="nama_barang">
+                            <input class="form-control form-white" id="nama_barang_tambah" type="text" name="nama_barang_tambah">
                         </div>
                        
                         <div class="col-md-6">

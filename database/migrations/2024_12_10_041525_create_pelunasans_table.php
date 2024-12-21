@@ -16,8 +16,11 @@ return new class extends Migration
             $table->foreignId('supplier_id');
             $table->foreignId('pembelian_id');
             $table->date('tempo_piutang');
-            $table->date('tanggal_pembayaran');
+            $table->date('tanggal_pembayaran')->nullable();
+            $table->string('jumlah_piutang');
             $table->string('total_pembayaran');
+            $table->string('sisa_piutang');
+            $table->string('status');
             $table->timestamps();
         });
     }

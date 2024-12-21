@@ -12,7 +12,7 @@ class Supplier extends Model
     protected $guarded = ['id'];
 
     public function pelunasan(){
-        return $this->belongsToMany(Pelunasan::class , 'supplier_id');
+        return $this->hasMany(Pelunasan::class , 'supplier_id');
      }
     public function pembelian(){
         return $this->hasMany(Pembelian::class , 'supplier_id');

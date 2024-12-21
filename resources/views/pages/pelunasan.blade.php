@@ -6,21 +6,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex justify-content-center">
-                <h2 class="card-title ">Data Pembelian</h2>
+                <h2 class="card-title ">Data Pelunasan Piutang</h2>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="tabel_pembelian" class="display" style="width:100%; align-item:center;">
+                    <table id="tabel_piutang" class="display" style="width:100%; align-item:center;">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Barang</th>
                                 <th>Nama Supplier</th>
-                                <th>Stok Pembelian</th>
-                                <th>Biaya</th>
-                                <th>Pembayaran</th>
-                                <th>Metode Pembayaran</th>
-                                <th>Tanggal</th>
+                                <th>Tempo Piutang</th>
+                                <th>Jumlah Piutang</th>
+                                <th>Total Pembayaran</th>
+                                <th>Sisa Piutang</th>
+                                <th>Tanggal Pembayaran</th>
+                                <th>Status</th>
                                 <th>Opsi</th>
                             </tr>
                         </thead>
@@ -35,5 +35,5 @@
     </div>
    
 </div>
-@include('modals.addPembelian')
+@include('modals.editPelunasan')
 @endsection

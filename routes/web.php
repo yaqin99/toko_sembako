@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PelunasanController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,6 @@ Route::get('/pembelian', [PembelianController::class , 'index']);
 Route::get('/getSingleBarang/{id}', [PembelianController::class , 'getSingle']);
 Route::get('/deletePembelian/{id}', [PembelianController::class , 'deletePembelian']);
 Route::post('/addPembelian', [PembelianController::class , 'addPembelian']);
+
+Route::get('/piutang', [PelunasanController::class , 'index']);
+Route::post('/pelunasan', [PelunasanController::class , 'pelunasan']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pembelian;
 use App\Models\Supplier;
 use App\Models\Barang;
+use App\Models\Pelunasan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -17,7 +18,7 @@ class PembelianController extends Controller
         $barangs = Barang::all() ; 
         if ($request->ajax()) {
             
-            $data = Pembelian::with(['barang' , 'supplier'])->get();
+            $data = Pembelian::with(['barang' , 'supplier','pelunasan'])->get();
             
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -29,6 +30,16 @@ class PembelianController extends Controller
                     return $row->stok_pembelian;})
                     ->addColumn('total_biaya', function($row){
                     return $row->total_biaya;})                  
+                    ->addColumn('total_pembayaran', function($row){
+                    return $row->total_pembayaran;})                  
+                    ->addColumn('tipe_pembayaran', function($row){
+                        if ($row->tipe_pembayaran == 1) {
+                           return 'Cash';
+                        } 
+                        else {
+                            return 'Credit';
+                        }
+                    })                  
                     ->addColumn('tanggal_pembelian', function($row){
                     return $row->tanggal_pembelian;})                  
                     ->addColumn('action', function($row){
@@ -77,6 +88,8 @@ class PembelianController extends Controller
                 'stok_pembelian' => request('stok'), 
                 'total_biaya' => request('total_biaya'), 
                 'tanggal_pembelian' => request('tanggal_pembelian'), 
+                'total_pembayaran' => request('bayar'), 
+                'tipe_pembayaran' => request('metode'), 
               ]);
             $stok = Barang::find(request('nama_barang'))->stok;
             Barang::where('id' , request('nama_barang'))->update(
@@ -84,21 +97,53 @@ class PembelianController extends Controller
                     'stok' => $stok + request('stok') , 
                 ]
             );
+
+            if (request('metode') == 2) {
+                Pelunasan::create([
+                    'supplier_id' => request('nama_supplier'), 
+                    'pembelian_id' => $add->id , 
+                    'tempo_piutang' => request('piutang'), 
+                    'tanggal_pembayaran' => request('tanggal_pembelian'), 
+                    'total_pembayaran' => request('bayar'), 
+                    'jumlah_piutang' => request('total_biaya'), 
+                    'sisa_piutang' => request('total_biaya') - request('bayar') , 
+                    'status' => 'Belum Lunas' , 
+                ]);
+            }
+
         } else {
             $add = Pembelian::where('id' , request('idPembelian'))->update([
-                'supplier_id' => request('nama_supplier'), 
-                'barang_id' => request('nama_barang'), 
-                'stok_pembelian' => request('stok'), 
-                'total_biaya' => request('total_biaya'), 
-                'tanggal_pembelian' => request('tanggal_pembelian'), 
-              ]);
+            'supplier_id' => request('nama_supplier'), 
+            'barang_id' => request('nama_barang'), 
+            'stok_pembelian' => request('stok'), 
+            'total_biaya' => request('total_biaya'), 
+            'tanggal_pembelian' => request('tanggal_pembelian'), 
+            'total_pembayaran' => request('bayar'), 
+            'tipe_pembayaran' => request('metode'), 
 
-              $stok = Barang::find(request('nama_barang'))->stok;
-              Barang::where('id' , request('nama_barang'))->update(
-                  [
-                      'stok' => $stok + request('stok') , 
-                  ]
-              );
+            ]);
+              
+            $totalStok = Pembelian::where('barang_id',request('nama_barang'))->sum('stok_pembelian');           
+            Barang::where('id' , request('nama_barang'))->update(
+                [
+                    'stok' => $totalStok , 
+                ]
+            );
+
+            if (request('metode') == 2) {
+                Pelunasan::create([
+                    'supplier_id' => request('nama_supplier'), 
+                    'pembelian_id' => request('idPembelian') , 
+                    'tempo_piutang' => request('piutang'), 
+                    'tanggal_pembayaran' => request('tanggal_pembelian'), 
+                    'total_pembayaran' => request('bayar'), 
+                    'jumlah_piutang' => request('total_biaya'), 
+                    'sisa_piutang' => request('total_biaya') - request('bayar') , 
+                    'status' => 'Belum Lunas' , 
+                ]);
+            } else {
+                Pelunasan::where('pembelian_id', request('idPembelian'))->delete();
+            }
               
         }
             
@@ -110,7 +155,12 @@ class PembelianController extends Controller
     {
      
       $data = Pembelian::find($id);
-      
+      $stok = Barang::find($data->barang_id);
+      Barang::where('id' , $data->barang_id)->update(
+          [
+              'stok' => $stok->stok - $data->stok_pembelian , 
+          ]
+      );
       $deltete = Pembelian::where('id' , $id)->delete();
     }
 

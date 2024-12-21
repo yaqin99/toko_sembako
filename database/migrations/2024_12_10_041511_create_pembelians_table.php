@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignId('barang_id');
             $table->integer('stok_pembelian');
             $table->string('total_biaya');
+            $table->string('total_pembayaran');
             $table->date('tanggal_pembelian');
+            $table->tinyInteger('tipe_pembayaran');
             $table->timestamps();
         });
     }
