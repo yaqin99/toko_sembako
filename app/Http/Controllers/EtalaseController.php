@@ -4,62 +4,76 @@ namespace App\Http\Controllers;
 
 use App\Models\Etalase;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class EtalaseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $pages = 'etalase' ; 
+        if ($request->ajax()) {
+            
+            $data = Etalase::all();
+            
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('nama_etalase', function($row){
+                    return $row->nama_etalase;})
+                                     
+                    ->addColumn('action', function($row){
+                            $btn = '
+                            <div class="btn-group">
+                            <a onclick=\'editEtalase(`'.$row.'`)\' class="edit btn btn-warning text-light btn-sm" data-bs-toggle="modal" data-bs-target="#editGuru">
+                            <i class="bi bi-pencil-fill" ></i>
+                            </a>
+                            
+                            <a href="javascript:void(0)" onclick=\'deleteEtalase(`'.$row->id.'`)\' class="edit btn btn-danger text-light btn-sm"><i class="bi bi-trash3-fill"></i></a>
+                            
+                            </div>
+                            
+                            ';
+                            
+     
+                             return $btn;
+                         
+                           
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+
+        return view('pages.etalase' , [
+            'pages' => $pages , 
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function addEtalase(Request $request)
     {
-        //
+     
+        if(request('idEtalase') == ''){
+            $add = Etalase::create([
+                'nama_etalase' => request('nama_etalase_modal'), 
+                 
+              ]);
+              
+        } else {
+            $add = Etalase::where('id' , request('idEtalase'))->update([
+                'nama_etalase' => request('nama_etalase_modal'), 
+               
+
+              ]);
+              
+        }
+            
+        
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function deleteEtalase($id)
     {
-        //
+     
+      $data = Etalase::find($id);
+      $deltete = Etalase::where('id' , $id)->delete();
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Etalase $etalase)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Etalase $etalase)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Etalase $etalase)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Etalase $etalase)
-    {
-        //
-    }
+    
 }

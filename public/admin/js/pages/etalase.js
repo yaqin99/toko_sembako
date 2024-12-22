@@ -1,4 +1,4 @@
-function deleteSupplier(id){
+function deleteEtalase(id){
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -19,7 +19,7 @@ function deleteSupplier(id){
         if (result.isConfirmed) {
             $.ajax({
 
-                url: `/deleteSupplier/${id}`,
+                url: `/deleteEtalase/${id}`,
                 type: "GET",
                 cache: false,
                 data: {
@@ -28,10 +28,10 @@ function deleteSupplier(id){
                 success:function(response){
                     swalWithBootstrapButtons.fire({
                         title: "Berhasil!",
-                        text: "Data Supplier Telah Terhapus",
+                        text: "Data Etalase Telah Terhapus",
                         icon: "success"
                       });
-                       getSupplier()
+                       getEtalase()
                 },
                 error:function(error){
                     
@@ -61,60 +61,52 @@ function deleteSupplier(id){
     
 }
 
-function getSupplier(){
-    $("#tabel_supplier").dataTable().fnDestroy();
+function getEtalase(){
+    $("#tabel_etalase").dataTable().fnDestroy();
 
-   var table = $('#tabel_supplier').DataTable({
+   var table = $('#tabel_etalase').DataTable({
      processing: true,
      serverSide: true,
-     ajax: "/supplier",
+     ajax: "/etalase",
      columns: [
          {data: null,"sortable": false, 
             render: function (data, type, row, meta) {
             return meta.row + meta.settings._iDisplayStart + 1;
            }  },
-         {data: 'nama_supplier', name: 'nama_supplier'},
-         {data: 'alamat', name: 'alamat'},
-         {data: 'no_hp', name: 'no_hp'},
-         {data: 'email', name: 'email'},
+         {data: 'nama_etalase', name: 'nama_etalase'},
+         
          {data: 'action', name: 'action', orderable: false, searchable: false},
      ]
  });
    }
 
-function showAddSupplier(){
-  $('#nama_supplier_modal').val('');
-  $('#no_hp').val('');
-  $('#alamat').val('');
-  $('#email').val('');
-  $('#idSupplier').val('');
-
-    $('#addSupplier').modal('show');
+function showAddEtalase(){
+    $('#stokEtalaseHidden').attr('hidden',true);
+    $('#nama_etalase_modal').val('');
+    
+    $('#addEtalase').modal('show');
 }
 
-function editSupplier(row){
+function editEtalase(row){
     let data = JSON.parse(row);
 
-    $('#nama_supplier_modal').val(data.nama_supplier);
-    $('#no_hp').val(data.no_hp);
-    $('#alamat').val(data.alamat);
-    $('#email').val(data.email);
-    $('#idSupplier').val(data.id);
-
-    $('#addSupplier').modal('show');
+    $('#stokEtalaseHidden').attr('hidden',false);
+    $('#nama_etalase_modal').val(data.nama_etalase);
+    
+    $('#addEtalase').modal('show');
 
 }
 
-$(document).ready(function() {     
-    getSupplier();
+   $(document).ready(function() {     
+    getEtalase();
 
-    $('#addSupplierButton').click(function(e) {
+    $('#addEtalaseButton').click(function(e) {
         e.preventDefault();
-        $('#addSupplier').modal({"backdrop": "static"})
+        $('#addEtalase').modal({"backdrop": "static"})
     
         //define variable
-        let idSupplier = $('#idSupplier').val();
-        var form_data = new FormData($('#formTambahSupplier')[0]);  
+        let idBarang = $('#idEtalase').val();
+        var form_data = new FormData($('#formTambahEtalase')[0]);  
 
              
         const swalWithBootstrapButtons = Swal.mixin({
@@ -136,7 +128,7 @@ $(document).ready(function() {
             if (result.isConfirmed) {
                 $.ajax({
     
-                    url: `/addSupplier`,
+                    url: `/addEtalase`,
                     type: "POST",
                     cache: false,
                     headers:{
@@ -150,12 +142,9 @@ $(document).ready(function() {
                             text: "Data Barang Telah Dirubah",
                             icon: "success"
                           });
-                          $('#nama_supplier').val('');
-                          $('#alamat').val('');
-                          $('#no_hp').val('');
-                          $('#email').val('');
+                          $('#nama_etalase').val('');
                         
-                          getSupplier()
+                          getEtalase()
      
                     },
                     error:function(error){
@@ -172,14 +161,13 @@ $(document).ready(function() {
               /* Read more about handling dismissals below */
               result.dismiss === Swal.DismissReason.cancel
             ) {
-              $('#nama_supplier').val('');
-              $('#alamat').val('');
-              $('#no_hp').val('');
-              $('#email').val('');
+                $('#nama_etalase').val('');
+
+              
              
               swalWithBootstrapButtons.fire({
                 title: "Batal",
-                text: "Data Supplier Tidak Ditambah",
+                text: "Data Etalase Tidak Ditambah",
                 icon: "error"
               });
             }

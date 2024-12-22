@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BarangSeeder::class,
             SupplierSeeder::class,
+            EtalaseSeeder::class,
             
             
         ]);

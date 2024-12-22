@@ -17,11 +17,24 @@
                             <label class="control-label">Harga Beli</label>
                             <input class="form-control form-white" id="harga_beli" type="number" name="harga_beli">
                         </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Harga Jual</label>
+                            <input class="form-control form-white" id="harga_jual" type="number" name="harga_jual">
+                        </div>
                         <div class="col-md-6" id="stokBarangHidden" hidden>
                             <label class="control-label">Stok Barang</label>
                             <input class="form-control form-white" id="stok" type="number" name="stok">
                         </div>
-                        
+                        <div class="col-md-6">
+                            <label for="etalase" class="form-label">Kategori</label>
+                            <select id="etalase" name="etalase"  class="form-select form-control">
+                                <option selected value="0">-Pilih-</option>
+                                @foreach ($etalase as $row)
+                                
+                                <option value="{{$row->id}}">{{$row->nama_etalase}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </form>
             </div>

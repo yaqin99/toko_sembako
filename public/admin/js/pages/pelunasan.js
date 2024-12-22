@@ -1,65 +1,3 @@
-function deleteBarang(id){
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success",
-          cancelButton: "btn btn-danger"
-        },
-        buttonsStyling: false
-      });
-      swalWithBootstrapButtons.fire({
-        title: "Konfirmasi Penghapusan Data?",
-        text: "Data Yang Dihapus Tidak Dapat Dikembalikan!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Hapus",
-        cancelButtonText: "Batal",
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-
-                url: `/deleteBarang/${id}`,
-                type: "GET",
-                cache: false,
-                data: {
-                    id:id , 
-                },
-                success:function(response){
-                    swalWithBootstrapButtons.fire({
-                        title: "Berhasil!",
-                        text: "Data Barang Telah Terhapus",
-                        icon: "success"
-                      });
-                       getBarang()
-                },
-                error:function(error){
-                    
-                  
-        
-                }
-        
-            })
-
-
-          
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire({
-            title: "Batal",
-            text: "Data Barang Tidak Terhapus",
-            icon: "error"
-          });
-        }
-      });
-
-
-
-
-    
-}
 
 function getPelunasan(){
     $("#tabel_piutang").dataTable().fnDestroy();
@@ -85,37 +23,31 @@ function getPelunasan(){
  });
    }
 
-function showAddBarang(){
-    $('#stokBarangHidden').attr('hidden',true);
-    $('#stok').val(0);
-    $('#idBarang').val('');
 
-    $('#addBarang').modal('show');
-}
-
-function editBarang(row){
+function pelunasan(row){
     let data = JSON.parse(row);
+    console.log(data)
+    $('#tempo_piutang').val(data.tempo_piutang);
+    $('#jumlah_piutang').val(data.jumlah_piutang);
+    $('#total_pembayaran_piutang').val(data.total_pembayaran);
+    $('#sisa').val(data.sisa_piutang);
+    $('#tanggal_pembayaran').val(data.tanggal_pembayaran);
+    $('#idPelunasan').val(data.id);
+    $('#idPembeli').val(data.pembelian_id);
 
-    $('#stokBarangHidden').attr('hidden',false);
-    $('#nama_barang_tambah').val(data.nama_barang);
-    $('#harga_beli').val(data.harga_beli);
-    $('#stok').val(data.stok);
-    $('#idBarang').val(data.id);
-
-    $('#addBarang').modal('show');
+    $('#modalPelunasan').modal('show');
 
 }
 
    $(document).ready(function() {     
     getPelunasan();
 
-    $('#addBarangButton').click(function(e) {
+    $('#pelunasanButton').click(function(e) {
         e.preventDefault();
-        $('#addBarang').modal({"backdrop": "static"})
+        $('#modalPelunasan').modal({"backdrop": "static"})
     
         //define variable
-        let idBarang = $('#idBarang').val();
-        var form_data = new FormData($('#formTambahBarang')[0]);  
+        var form_data = new FormData($('#formPelunasanPiutang')[0]);  
 
              
         const swalWithBootstrapButtons = Swal.mixin({
@@ -137,7 +69,7 @@ function editBarang(row){
             if (result.isConfirmed) {
                 $.ajax({
     
-                    url: `/addBarang`,
+                    url: `/pelunasan`,
                     type: "POST",
                     cache: false,
                     headers:{
@@ -148,13 +80,12 @@ function editBarang(row){
                     success:function(response){
                         swalWithBootstrapButtons.fire({
                             title: "Berhasil!",
-                            text: "Data Barang Telah Dirubah",
+                            text: "Data Pelunasan Piutang Telah Dirubah",
                             icon: "success"
                           });
-                          $('#nama_barang').val('');
-                          $('#harga_beli').val('');
-                        
-                          getBarang()
+                         $('#formPelunasanPiutang')[0].reset();
+
+                         getPelunasan();
      
                     },
                     error:function(error){
@@ -171,13 +102,13 @@ function editBarang(row){
               /* Read more about handling dismissals below */
               result.dismiss === Swal.DismissReason.cancel
             ) {
-                $('#nama_barang').val('');
-                $('#harga_beli').val('');
+              $('#formPelunasanPiutang')[0].reset();
+
               
              
               swalWithBootstrapButtons.fire({
                 title: "Batal",
-                text: "Data Barang Tidak Ditambah",
+                text: "Data Piutang Tidak Dirubah",
                 icon: "error"
               });
             }

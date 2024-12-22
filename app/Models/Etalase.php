@@ -12,6 +12,6 @@ class Etalase extends Model
     protected $guarded = ['id'];
 
     public function barang(){
-        return $this->hasOne(Barang::class);
+        return $this->hasMany(Barang::class);
      }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Etalase;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -14,18 +15,23 @@ class BarangController extends Controller
     public function index(Request $request)
     {
         $pages = 'barang' ; 
+        $etalase = Etalase::all();
+
         if ($request->ajax()) {
             
-            $data = Barang::all();
-            
+            $data = Barang::with('etalase')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('nama_barang', function($row){
                     return $row->nama_barang;})
                     ->addColumn('harga_beli', function($row){
                     return $row->harga_beli;})
+                    ->addColumn('harga_jual', function($row){
+                    return $row->harga_jual;})
                     ->addColumn('stok', function($row){
                     return $row->stok;})                  
+                    ->addColumn('kategori', function($row){
+                    return $row->etalase->nama_etalase;})                  
                     ->addColumn('action', function($row){
                             $btn = '
                             <div class="btn-group">
@@ -50,6 +56,7 @@ class BarangController extends Controller
 
         return view('pages.barang' , [
             'pages' => $pages , 
+            'etalase' => $etalase , 
         ]);
     }
 
@@ -75,14 +82,20 @@ class BarangController extends Controller
             $add = Barang::create([
                 'nama_barang' => request('nama_barang_tambah'), 
                 'harga_beli' => request('harga_beli'), 
+                'harga_jual' => request('harga_jual'), 
                 'stok' => 0, 
+                'etalase_id' => request('etalase'), 
               ]);
               
         } else {
             $add = Barang::where('id' , request('idBarang'))->update([
                 'nama_barang' => request('nama_barang_tambah'), 
                 'harga_beli' => request('harga_beli'), 
+                'harga_jual' => request('harga_jual'), 
+
                 'stok' => request('stok'), 
+                'etalase_id' => request('etalase'), 
+
               ]);
               
         }

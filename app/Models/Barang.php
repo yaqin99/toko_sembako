@@ -12,7 +12,7 @@ class Barang extends Model
     protected $guarded = ['id'];
 
     public function etalase(){
-        return $this->belongsTo(Etalase::class , 'barang_id');
+        return $this->belongsTo(Etalase::class , 'etalase_id');
      }
     public function pembelian(){
         return $this->hasMany(Pembelian::class , 'barang_id');

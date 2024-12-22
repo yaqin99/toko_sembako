@@ -75,7 +75,9 @@ function getBarang(){
            }  },
          {data: 'nama_barang', name: 'nama_barang'},
          {data: 'harga_beli', name: 'harga_beli'},
+         {data: 'harga_jual', name: 'harga_jual'},
          {data: 'stok', name: 'stok'},
+         {data: 'kategori', name: 'kategori'},
          {data: 'action', name: 'action', orderable: false, searchable: false},
      ]
  });
@@ -83,9 +85,12 @@ function getBarang(){
 
 function showAddBarang(){
     $('#stokBarangHidden').attr('hidden',true);
-    $('#stok').val(0);
+    $('#nama_barang_tambah').val('');
+    $('#harga_beli').val('');
+    $('#harga_jual').val('');
+    $('#stok').val('');
+    $('#etalase').val('0').trigger('change');
     $('#idBarang').val('');
-
     $('#addBarang').modal('show');
 }
 
@@ -95,7 +100,9 @@ function editBarang(row){
     $('#stokBarangHidden').attr('hidden',false);
     $('#nama_barang_tambah').val(data.nama_barang);
     $('#harga_beli').val(data.harga_beli);
+    $('#harga_jual').val(data.harga_jual);
     $('#stok').val(data.stok);
+    $('#etalase').val(data.etalase_id);
     $('#idBarang').val(data.id);
 
     $('#addBarang').modal('show');

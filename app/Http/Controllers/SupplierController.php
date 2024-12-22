@@ -58,7 +58,7 @@ class SupplierController extends Controller
      
         if(request('idSupplier') == ''){
             $add = Supplier::create([
-                'nama_supplier' => request('nama_supplier'), 
+                'nama_supplier' => request('nama_supplier_modal'), 
                 'alamat' => request('alamat'), 
                 'no_hp' => request('no_hp'), 
                 'email' => request('email'), 
@@ -66,7 +66,7 @@ class SupplierController extends Controller
               
         } else {
             $add = Supplier::where('id' , request('idSupplier'))->update([
-                'nama_supplier' => request('nama_supplier'), 
+                'nama_supplier' => request('nama_supplier_modal'), 
                 'alamat' => request('alamat'), 
                 'no_hp' => request('no_hp'), 
                 'email' => request('email'), 

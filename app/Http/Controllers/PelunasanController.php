@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelunasan;
+use App\Models\Pembelian;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -31,6 +32,7 @@ class PelunasanController extends Controller
                     ->addColumn('tanggal_pembayaran', function($row){
                     return $row->tanggal_pembayaran;})
                     ->addColumn('status', function($row){
+                        
                     return $row->status;})
                                   
                                     
@@ -64,70 +66,33 @@ class PelunasanController extends Controller
     
     
 
-    public function editPelunasan(Request $request)
+    public function Pelunasan(Request $request)
     {
-     
-        if(request('idPembelian') == ''){
-            $add = Pelunasan::create([
-                
-                'supplier_id' => request('nama_supplier'), 
-                'barang_id' => request('nama_barang'), 
-                'stok_pembelian' => request('stok'), 
-                'total_biaya' => request('total_biaya'), 
-                'tanggal_pembelian' => request('tanggal_pembelian'), 
-                'total_pembayaran' => request('bayar'), 
-                'tipe_pembayaran' => request('metode'), 
-              ]);
-            
+            $status = request('jumlah_piutang') - request('total_pembayaran_piutang');
+            if ($status <= 0) {
+               $bahas = 'Lunas';
+            } else {
+                $bahas = 'Belum Lunas';
 
-            if (request('metode') == 2) {
-                Pelunasan::create([
-                    'supplier_id' => request('nama_supplier'), 
-                    'pembelian_id' => $add->id , 
-                    'tempo_piutang' => request('piutang'), 
-                    'tanggal_pembayaran' => request('tanggal_pembelian'), 
-                    'total_pembayaran' => request('bayar'), 
-                    'jumlah_piutang' => request('total_biaya'), 
-                    'sisa_piutang' => request('total_biaya') - request('bayar') , 
-                    'status' => 'Belum Lunas' , 
-                ]);
             }
-
-        } else {
-            $add = Pelunasan::where('id' , request('idPembelian'))->update([
-            'supplier_id' => request('nama_supplier'), 
-            'barang_id' => request('nama_barang'), 
-            'stok_pembelian' => request('stok'), 
-            'total_biaya' => request('total_biaya'), 
-            'tanggal_pembelian' => request('tanggal_pembelian'), 
-            'total_pembayaran' => request('bayar'), 
-            'tipe_pembayaran' => request('metode'), 
-
+            $edit = Pelunasan::where('id' , request('idPelunasan'))->update([
+            'tempo_piutang' => request('tempo_piutang'), 
+            'jumlah_piutang' => request('jumlah_piutang'), 
+            'total_pembayaran' => request('total_pembayaran_piutang'), 
+            'sisa_piutang' => $status, 
+            'tanggal_pembayaran' => request('tanggal_pembayaran'), 
+            'status' => $bahas , 
             ]);
               
-            $totalStok = Pelunasan::where('barang_id',request('nama_barang'))->sum('stok_pembelian');           
-            
-
-            if (request('metode') == 2) {
-                Pelunasan::create([
-                    'supplier_id' => request('nama_supplier'), 
-                    'pembelian_id' => request('idPembelian') , 
-                    'tempo_piutang' => request('piutang'), 
-                    'tanggal_pembayaran' => request('tanggal_pembelian'), 
-                    'total_pembayaran' => request('bayar'), 
-                    'jumlah_piutang' => request('total_biaya'), 
-                    'sisa_piutang' => request('total_biaya') - request('bayar') , 
-                    'status' => 'Belum Lunas' , 
-                ]);
-            } else {
-                Pelunasan::where('pembelian_id', request('idPembelian'))->delete();
-            }
+            Pembelian::where('id' , request('idPembeli'))->update([
+                'total_pembayaran' => request('total_pembayaran_piutang'), 
+            ]);
               
         }
             
         
         
-    }
+    
 
     
 }

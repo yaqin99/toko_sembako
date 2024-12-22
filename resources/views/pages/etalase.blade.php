@@ -6,19 +6,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex justify-content-center">
-                <h2 class="card-title ">Data Barang</h2>
+                <h2 class="card-title ">Data Etalase Toko</h2>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="tabel_barang" class="display" style="width:100%; align-item:center;">
+                    <table id="tabel_etalase" class="display" style="width:100%; align-item:center;">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Barang</th>
-                                <th>Harga Beli</th>
-                                <th>Harga Jual</th>
-                                <th>Stok</th>
-                                <th>Etalase</th>
+                                <th>Nama Etalase</th>
+                                
                                 <th>Opsi</th>
                             </tr>
                         </thead>
@@ -33,5 +30,5 @@
     </div>
    
 </div>
-@include('modals.addBarang')
+@include('modals.addEtalase')
 @endsection

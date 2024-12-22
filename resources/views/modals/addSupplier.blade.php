@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Nama Supplier</label>
-                            <input class="form-control form-white" id="nama_supplier" type="text" name="nama_supplier">
+                            <input class="form-control form-white" id="nama_supplier_modal" type="text" name="nama_supplier_modal">
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Alamat</label>

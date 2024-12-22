@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\EtalaseController;
 use App\Http\Controllers\PelunasanController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\SupplierController;
@@ -34,3 +35,7 @@ Route::post('/addPembelian', [PembelianController::class , 'addPembelian']);
 
 Route::get('/piutang', [PelunasanController::class , 'index']);
 Route::post('/pelunasan', [PelunasanController::class , 'pelunasan']);
+
+Route::get('/etalase', [EtalaseController::class , 'index']);
+Route::get('/deleteEtalase/{id}', [EtalaseController::class , 'deleteEtalase']);
+Route::post('/addEtalase', [EtalaseController::class , 'addEtalase']);

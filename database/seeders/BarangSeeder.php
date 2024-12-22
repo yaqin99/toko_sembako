@@ -17,7 +17,9 @@ class BarangSeeder extends Seeder
             [
                 'nama_barang' => 'Kecap Indofood' ,
                 'harga_beli' =>  10000 ,
+                'harga_jual' =>  12500 ,
                 'stok' => 0 , 
+                'etalase_id' => 1 , 
             ]
             );
     }

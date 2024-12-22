@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Toko Sembako HR</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/admin/images/yala.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/admin/images/hr.png">
     <!-- Datatable -->
     <link href="/admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
@@ -43,10 +43,10 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="/admin/images/pk_guru_logo.png" alt="">
-                <img class="logo-compact" src="/admin/images/pk_guru.png" alt="">
-                <img class="brand-title" src="/admin/images/pk_guru.png" alt="">
+            <a href="/" class="brand-logo">
+                <img class="logo-abbr" src="/admin/images/hr.png" alt="">
+                <img class="logo-compact" src="/admin/images/hr_text.png" alt="">
+                <img class="brand-title" src="/admin/images/hr_text.png" alt="">
             </a>
 
             <div class="nav-control">
@@ -136,6 +136,7 @@
     <script src="/admin/js/pages/supplier.js"></script>
     <script src="/admin/js/pages/pembelian.js"></script>
     <script src="/admin/js/pages/pelunasan.js"></script>
+    <script src="/admin/js/pages/etalase.js"></script>
    
 </body>
 
