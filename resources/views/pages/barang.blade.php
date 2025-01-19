@@ -1,7 +1,11 @@
 @extends('layout')
 @section('main')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<style>
+    #tabel_barang tbody tr {
+            color: black ; 
+        }
+</style>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -18,6 +22,7 @@
                                 <th>Harga Beli</th>
                                 <th>Harga Jual</th>
                                 <th>Stok</th>
+                                <th>Satuan</th>
                                 <th>Etalase</th>
                                 <th>Opsi</th>
                             </tr>

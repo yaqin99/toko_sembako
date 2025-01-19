@@ -15,15 +15,23 @@
                        
                         <div class="col-md-6">
                             <label class="control-label">Harga Beli</label>
-                            <input class="form-control form-white" id="harga_beli" type="number" name="harga_beli">
+                            <input class="form-control form-white" id="harga_beli" type="text" name="harga_beli">
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Harga Jual</label>
-                            <input class="form-control form-white" id="harga_jual" type="number" name="harga_jual">
+                            <input class="form-control form-white" id="harga_jual" type="text" name="harga_jual">
                         </div>
                         <div class="col-md-6" id="stokBarangHidden" hidden>
                             <label class="control-label">Stok Barang</label>
                             <input class="form-control form-white" id="stok" type="number" name="stok">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="satuan" class="form-label">Satuan</label>
+                            <select id="satuan" name="satuan"  class="form-select form-control">
+                                <option selected value="0">-Pilih-</option>
+                                <option value="1">Pcs</option>
+                                <option value="2">Karton</option>                              
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label for="etalase" class="form-label">Kategori</label>

@@ -109,8 +109,8 @@ function editPembelian(row){
     $('#idPembelian').val(data.id);
     $('#stok').val(data.stok_pembelian);
     $('#tanggal_pembelian').val(data.tanggal_pembelian);
-    $('#biaya').val(data.total_biaya);
-    $('#bayar').val(data.total_pembayaran);
+    $('#biaya').val(formatRupiah(data.total_biaya));
+    $('#bayar').val(formatRupiah(data.total_pembayaran));
     $('#metode').val(data.tipe_pembayaran).trigger('change');
     $('#nama_barang').val(data.barang_id).trigger('change');
     $('#nama_supplier').val(data.supplier_id).trigger('change');
@@ -132,7 +132,6 @@ function show(){
 function getBiaya(){
   let nama_barang = $('#nama_barang').val();
   let stok = $('#stok').val();
-
   $.ajax({
 
     url: `/getSingleBarang/${nama_barang}`,
@@ -142,7 +141,9 @@ function getBiaya(){
     processData: false,
     contentType: false,
     success:function(response){
-        $('#biaya').val(stok*response.harga_beli);
+      let sabah = stok*response.harga_beli ; 
+
+        $('#biaya').val(formatRupiah(sabah));
     },
     error:function(error){
         
@@ -154,6 +155,13 @@ function getBiaya(){
 }
 
    $(document).ready(function() {     
+    $("#bayar").on("input", function () {
+      let value = $(this).val();
+      if (value) {
+          $(this).val(formatRupiah(value));
+      }
+  });
+  
     getPembelian();
     $("#nama_supplier").select2();
     $("#nama_barang").select2();
@@ -194,6 +202,11 @@ function getBiaya(){
 
       });
 
+      const cleanInput = (value) => value.replace(/Rp\.?\s?|\.|\s|RP\.?/g, '');
+        
+      const bayarFix = cleanInput(bayar);
+      const beliFix = cleanInput(biaya);
+
         
 
         let fix = harga*stok ; 
@@ -204,8 +217,8 @@ function getBiaya(){
         formData.append("nama_barang", nama_barang);
         formData.append("stok", stok);
         formData.append("tanggal_pembelian", tanggal_pembelian);
-        formData.append("total_biaya", fix);
-        formData.append("bayar", bayar);
+        formData.append("total_biaya", beliFix);
+        formData.append("bayar", bayarFix);
         formData.append("metode", metode);
         formData.append("piutang", piutang);
 

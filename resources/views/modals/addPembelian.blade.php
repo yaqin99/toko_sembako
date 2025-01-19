@@ -35,11 +35,11 @@
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Total Biaya</label>
-                            <input class="form-control form-white" id="biaya" type="number" name="biaya" readonly>
+                            <input class="form-control form-white" id="biaya" type="text" name="biaya" readonly>
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Bayar</label>
-                            <input class="form-control form-white" id="bayar" type="number" name="bayar">
+                            <input class="form-control form-white" id="bayar" type="text" name="bayar">
                         </div>
                         
                         <div class="col-md-6">

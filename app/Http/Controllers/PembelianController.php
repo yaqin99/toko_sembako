@@ -29,9 +29,10 @@ class PembelianController extends Controller
                     ->addColumn('stok_pembelian', function($row){
                     return $row->stok_pembelian;})
                     ->addColumn('total_biaya', function($row){
-                    return $row->total_biaya;})                  
-                    ->addColumn('total_pembayaran', function($row){
-                    return $row->total_pembayaran;})                  
+                    return "Rp " . number_format($row->total_biaya, 2, ",", ".");
+                    })->addColumn('total_pembayaran', function($row){
+                    return "Rp " . number_format($row->total_pembayaran, 2, ",", ".");
+                    })                  
                     ->addColumn('tipe_pembayaran', function($row){
                         if ($row->tipe_pembayaran == 1) {
                            return 'Cash';
@@ -79,6 +80,7 @@ class PembelianController extends Controller
 
     public function addPembelian(Request $request)
     {
+        
      
         if(request('idPembelian') == ''){
             $add = Pembelian::create([

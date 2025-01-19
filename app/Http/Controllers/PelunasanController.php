@@ -24,11 +24,12 @@ class PelunasanController extends Controller
                     ->addColumn('tempo_piutang', function($row){
                     return $row->tempo_piutang;})
                     ->addColumn('jumlah_piutang', function($row){
-                    return $row->jumlah_piutang;})
+                    return "Rp " . number_format($row->jumlah_piutang, 2, ",", ".");})
                     ->addColumn('total_pembayaran', function($row){
-                    return $row->total_pembayaran;})
+                        
+                    return "Rp " . number_format($row->total_pembayaran, 2, ",", ".");})
                     ->addColumn('sisa_piutang', function($row){
-                    return $row->sisa_piutang;})
+                    return "Rp " . number_format($row->sisa_piutang, 2, ",", ".");})
                     ->addColumn('tanggal_pembayaran', function($row){
                     return $row->tanggal_pembayaran;})
                     ->addColumn('status', function($row){

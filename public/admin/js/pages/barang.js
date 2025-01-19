@@ -77,6 +77,7 @@ function getBarang(){
          {data: 'harga_beli', name: 'harga_beli'},
          {data: 'harga_jual', name: 'harga_jual'},
          {data: 'stok', name: 'stok'},
+         {data: 'satuan', name: 'satuan'},
          {data: 'kategori', name: 'kategori'},
          {data: 'action', name: 'action', orderable: false, searchable: false},
      ]
@@ -90,6 +91,8 @@ function showAddBarang(){
     $('#harga_jual').val('');
     $('#stok').val('');
     $('#etalase').val('0').trigger('change');
+    $('#satuan').val('0').trigger('change');
+
     $('#idBarang').val('');
     $('#addBarang').modal('show');
 }
@@ -99,17 +102,51 @@ function editBarang(row){
 
     $('#stokBarangHidden').attr('hidden',false);
     $('#nama_barang_tambah').val(data.nama_barang);
-    $('#harga_beli').val(data.harga_beli);
-    $('#harga_jual').val(data.harga_jual);
+  
+    $('#harga_beli').val(formatRupiah(data.harga_beli));
+    $('#harga_jual').val(formatRupiah(data.harga_jual));
     $('#stok').val(data.stok);
     $('#etalase').val(data.etalase_id);
+    $('#satuan').val(data.satuan).trigger('change');
     $('#idBarang').val(data.id);
 
     $('#addBarang').modal('show');
 
 }
 
-   $(document).ready(function() {     
+function formatRupiah(angka) {
+  // Pastikan angka adalah string
+  let number_string = angka.toString().replace(/[^,\d]/g, ""),
+      split = number_string.split(","),
+      sisa = split[0].length % 3,
+      rupiah = split[0].substr(0, sisa),
+      ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+  if (ribuan) {
+      let separator = sisa ? "." : "";
+      rupiah += separator + ribuan.join(".");
+  }
+
+  return "RP. " + rupiah + (split[1] !== undefined ? "," + split[1] : "");
+}
+
+
+   $(document).ready(function() {   
+    
+  $("#harga_beli").on("input", function () {
+      let value = $(this).val();
+      if (value) {
+          $(this).val(formatRupiah(value));
+      }
+  });
+
+  // Event untuk format harga jual
+  $("#harga_jual").on("input", function () {
+      let value = $(this).val();
+      if (value) {
+          $(this).val(formatRupiah(value));
+      }
+  });
     getBarang();
 
     $('#addBarangButton').click(function(e) {

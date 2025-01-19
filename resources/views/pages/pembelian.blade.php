@@ -1,7 +1,11 @@
 @extends('layout')
 @section('main')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<style>
+    #tabel_pembelian tbody tr {
+            color: black ; 
+        }
+</style>
 <div class="row">
     <div class="col-12">
         <div class="card">

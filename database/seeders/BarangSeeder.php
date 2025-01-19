@@ -19,6 +19,7 @@ class BarangSeeder extends Seeder
                 'harga_beli' =>  10000 ,
                 'harga_jual' =>  12500 ,
                 'stok' => 0 , 
+                'satuan' => 1 , 
                 'etalase_id' => 1 , 
             ]
             );
