@@ -74,8 +74,8 @@ function getSupplier(){
             return meta.row + meta.settings._iDisplayStart + 1;
            }  },
          {data: 'nama_supplier', name: 'nama_supplier'},
-         {data: 'alamat', name: 'alamat'},
          {data: 'no_hp', name: 'no_hp'},
+         {data: 'alamat', name: 'alamat'},
          {data: 'email', name: 'email'},
          {data: 'action', name: 'action', orderable: false, searchable: false},
      ]
@@ -147,7 +147,7 @@ $(document).ready(function() {
                     success:function(response){
                         swalWithBootstrapButtons.fire({
                             title: "Berhasil!",
-                            text: "Data Barang Telah Dirubah",
+                            text: "Data Supplier Telah Dirubah",
                             icon: "success"
                           });
                           $('#nama_supplier').val('');

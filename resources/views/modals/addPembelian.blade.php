@@ -31,7 +31,15 @@
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Stok Pembelian</label>
-                            <input class="form-control form-white" id="stok" type="number" name="stok" oninput="getBiaya()">
+                            <input class="form-control form-white" id="stok" type="number" name="stok" >
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="jenis_pembelian" class="form-label">Jenis Pembelian</label>
+                            <select id="jenis_pembelian" name="jenis_pembelian" class="form-select form-control" onchange="getBiaya()">
+                                <option  value="1">Pcs</option>
+                                <option  value="2">Karton</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Total Biaya</label>
@@ -46,6 +54,7 @@
                             <label class="control-label">Tanggal Pembelian</label>
                             <input class="form-control form-white" id="tanggal_pembelian" type="date" name="tanggal_pembelian">
                         </div>
+                       
                         <div class="col-md-6">
                             <label for="metode" class="form-label">Metode Pelunasan</label>
                             <select id="metode" name="metode" onchange="show()" class="form-select form-control">

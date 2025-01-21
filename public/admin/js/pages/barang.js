@@ -76,6 +76,7 @@ function getBarang(){
          {data: 'nama_barang', name: 'nama_barang'},
          {data: 'harga_beli', name: 'harga_beli'},
          {data: 'harga_jual', name: 'harga_jual'},
+         {data: 'harga_eceran', name: 'harga_eceran'},
          {data: 'stok', name: 'stok'},
          {data: 'satuan', name: 'satuan'},
          {data: 'kategori', name: 'kategori'},
@@ -89,6 +90,7 @@ function showAddBarang(){
     $('#nama_barang_tambah').val('');
     $('#harga_beli').val('');
     $('#harga_jual').val('');
+    $('#harga_eceran').val('');
     $('#stok').val('');
     $('#etalase').val('0').trigger('change');
     $('#satuan').val('0').trigger('change');
@@ -105,6 +107,7 @@ function editBarang(row){
   
     $('#harga_beli').val(formatRupiah(data.harga_beli));
     $('#harga_jual').val(formatRupiah(data.harga_jual));
+    $('#harga_eceran').val(formatRupiah(data.harga_eceran));
     $('#stok').val(data.stok);
     $('#etalase').val(data.etalase_id);
     $('#satuan').val(data.satuan).trigger('change');
@@ -133,6 +136,12 @@ function formatRupiah(angka) {
 
    $(document).ready(function() {   
     
+  $("#harga_eceran").on("input", function () {
+      let value = $(this).val();
+      if (value) {
+          $(this).val(formatRupiah(value));
+      }
+  });
   $("#harga_beli").on("input", function () {
       let value = $(this).val();
       if (value) {
@@ -156,8 +165,17 @@ function formatRupiah(angka) {
         //define variable
         let idBarang = $('#idBarang').val();
         var form_data = new FormData($('#formTambahBarang')[0]);  
+        const cleanInput = (value) => value.replace(/Rp\.?\s?|\.|\s|RP\.?/g, '');
+        let harga_jual = $('#harga_jual').val();
+        let harga_beli = $('#harga_beli').val();
+        let harga_eceran = $('#harga_eceran').val();
+        const beli = cleanInput(harga_beli);
+        const jual = cleanInput(harga_jual);
+        const eceran = cleanInput(harga_eceran);
+        form_data.append("harga_jual", jual);
+        form_data.append("harga_beli", beli);
+        form_data.append("harga_eceran", eceran);
 
-             
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
               confirmButton: "btn btn-success",
@@ -191,8 +209,7 @@ function formatRupiah(angka) {
                             text: "Data Barang Telah Dirubah",
                             icon: "success"
                           });
-                          $('#nama_barang').val('');
-                          $('#harga_beli').val('');
+                         
                         
                           getBarang()
      

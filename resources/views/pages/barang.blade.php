@@ -21,6 +21,7 @@
                                 <th>Nama Barang</th>
                                 <th>Harga Beli</th>
                                 <th>Harga Jual</th>
+                                <th>Harga Eceran</th>
                                 <th>Stok</th>
                                 <th>Satuan</th>
                                 <th>Etalase</th>

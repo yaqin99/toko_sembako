@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('total_biaya');
             $table->string('total_pembayaran');
             $table->date('tanggal_pembelian');
+            $table->tinyInteger('jenis_pembelian');
             $table->tinyInteger('tipe_pembayaran');
             $table->timestamps();
         });

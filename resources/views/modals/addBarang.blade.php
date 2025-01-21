@@ -21,6 +21,10 @@
                             <label class="control-label">Harga Jual</label>
                             <input class="form-control form-white" id="harga_jual" type="text" name="harga_jual">
                         </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Harga Eceran</label>
+                            <input class="form-control form-white" id="harga_eceran" type="text" name="harga_eceran">
+                        </div>
                         <div class="col-md-6" id="stokBarangHidden" hidden>
                             <label class="control-label">Stok Barang</label>
                             <input class="form-control form-white" id="stok" type="number" name="stok">

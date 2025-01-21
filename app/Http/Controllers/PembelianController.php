@@ -28,10 +28,22 @@ class PembelianController extends Controller
                     return $row->supplier->nama_supplier;})
                     ->addColumn('stok_pembelian', function($row){
                     return $row->stok_pembelian;})
+                    ->addColumn('jenis_pembelian', function($row){
+                     if ($row->jenis_pembelian == 1) {
+                        return 'Pcs' ; 
+                     } else {
+                        return 'Karton' ;
+                     }
+                    })
                     ->addColumn('total_biaya', function($row){
                     return "Rp " . number_format($row->total_biaya, 2, ",", ".");
-                    })->addColumn('total_pembayaran', function($row){
+                    })
+                    ->addColumn('total_pembayaran', function($row){
                     return "Rp " . number_format($row->total_pembayaran, 2, ",", ".");
+                    })                  
+                    ->addColumn('kembalian', function($row){
+                    $kembali = $row->total_pembayaran - $row->total_biaya ; 
+                    return "Rp " . number_format($kembali, 2, ",", ".");
                     })                  
                     ->addColumn('tipe_pembayaran', function($row){
                         if ($row->tipe_pembayaran == 1) {
@@ -90,6 +102,7 @@ class PembelianController extends Controller
                 'stok_pembelian' => request('stok'), 
                 'total_biaya' => request('total_biaya'), 
                 'tanggal_pembelian' => request('tanggal_pembelian'), 
+                'jenis_pembelian' => request('jenis_pembelian'), 
                 'total_pembayaran' => request('bayar'), 
                 'tipe_pembayaran' => request('metode'), 
               ]);
@@ -120,6 +133,7 @@ class PembelianController extends Controller
             'stok_pembelian' => request('stok'), 
             'total_biaya' => request('total_biaya'), 
             'tanggal_pembelian' => request('tanggal_pembelian'), 
+            'jenis_pembelian' => request('jenis_pembelian'), 
             'total_pembayaran' => request('bayar'), 
             'tipe_pembayaran' => request('metode'), 
 

@@ -21,8 +21,10 @@
                                 <th>Nama Barang</th>
                                 <th>Nama Supplier</th>
                                 <th>Stok Pembelian</th>
+                                <th>Jenis Pembelian</th>
                                 <th>Biaya</th>
                                 <th>Pembayaran</th>
+                                <th>Kembalian</th>
                                 <th>Metode Pembayaran</th>
                                 <th>Tanggal</th>
                                 <th>Opsi</th>

@@ -16,8 +16,9 @@ class BarangSeeder extends Seeder
         DB::table('barangs')->insert(
             [
                 'nama_barang' => 'Kecap Indofood' ,
-                'harga_beli' =>  10000 ,
-                'harga_jual' =>  12500 ,
+                'harga_beli' =>  75000 ,
+                'harga_jual' =>  9000 ,
+                'harga_eceran' =>  7750 ,
                 'stok' => 0 , 
                 'satuan' => 1 , 
                 'etalase_id' => 1 , 

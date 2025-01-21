@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->integer('harga_beli');
             $table->integer('harga_jual');
+            $table->integer('harga_eceran');
             $table->integer('stok');
             $table->tinyInteger('satuan');
             $table->timestamps();

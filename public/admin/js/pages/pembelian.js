@@ -76,8 +76,10 @@ function getPembelian(){
          {data: 'nama_barang', name: 'nama_barang'},
          {data: 'nama_supplier', name: 'nama_supplier'},
          {data: 'stok_pembelian', name: 'stok_pembelian'},
+         {data: 'jenis_pembelian', name: 'jenis_pembelian'},
          {data: 'total_biaya', name: 'total_biaya'},
          {data: 'total_pembayaran', name: 'total_pembayaran'},
+         {data: 'kembalian', name: 'kembalian'},
          {data: 'tipe_pembayaran', name: 'tipe_pembayaran'},
          {data: 'tanggal_pembelian', name: 'tanggal_pembelian'},
          {data: 'action', name: 'action', orderable: false, searchable: false},
@@ -90,6 +92,7 @@ function showAddPembelian(){
     $('#tanggal_pembelian').val('');
     $('#nama_barang').val(0).trigger('change');
     $('#nama_supplier').val(0).trigger('change');
+    $('#jenis_pembelian').val(1).trigger('change');
     $('#idPembelian').val('');
     $('#biaya').val('');
     $('#bayar').val('');
@@ -113,6 +116,7 @@ function editPembelian(row){
     $('#bayar').val(formatRupiah(data.total_pembayaran));
     $('#metode').val(data.tipe_pembayaran).trigger('change');
     $('#nama_barang').val(data.barang_id).trigger('change');
+    $('#jenis_pembelian').val(data.jenis_pembelian).trigger('change');
     $('#nama_supplier').val(data.supplier_id).trigger('change');
 
     $('#addPembelian').modal('show');
@@ -132,6 +136,7 @@ function show(){
 function getBiaya(){
   let nama_barang = $('#nama_barang').val();
   let stok = $('#stok').val();
+  let ecer = $('#jenis_pembelian').val();
   $.ajax({
 
     url: `/getSingleBarang/${nama_barang}`,
@@ -141,9 +146,14 @@ function getBiaya(){
     processData: false,
     contentType: false,
     success:function(response){
-      let sabah = stok*response.harga_beli ; 
-
-        $('#biaya').val(formatRupiah(sabah));
+      let biaya = stok*response.harga_beli ; 
+      let eceran = stok*response.harga_eceran ; 
+      if (ecer == 1) {
+        $('#biaya').val(formatRupiah(eceran));
+      } else {
+        
+        $('#biaya').val(formatRupiah(biaya));
+      }
     },
     error:function(error){
         
@@ -177,6 +187,7 @@ function getBiaya(){
         let biaya = $('#biaya').val();
         let stok = $('#stok').val();
         let tanggal_pembelian = $('#tanggal_pembelian').val();
+        let jenis_pembelian = $('#jenis_pembelian').val();
         let harga = 0 ; 
         let nama_barang = $('#nama_barang').val();
         let metode = $('#metode').val();
@@ -217,6 +228,7 @@ function getBiaya(){
         formData.append("nama_barang", nama_barang);
         formData.append("stok", stok);
         formData.append("tanggal_pembelian", tanggal_pembelian);
+        formData.append("jenis_pembelian", jenis_pembelian);
         formData.append("total_biaya", beliFix);
         formData.append("bayar", bayarFix);
         formData.append("metode", metode);

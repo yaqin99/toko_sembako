@@ -33,6 +33,10 @@ class BarangController extends Controller
                     return 
                     "Rp " . number_format($row->harga_jual, 2, ",", ".");
                     })
+                    ->addColumn('harga_eceran', function($row){
+                    return 
+                    "Rp " . number_format($row->harga_eceran, 2, ",", ".");
+                    })
                     ->addColumn('stok', function($row){
                     return $row->stok;})                  
                     ->addColumn('satuan', function($row){
@@ -89,16 +93,13 @@ class BarangController extends Controller
      */
     public function addBarang(Request $request)
     {
-        $harga_beli = str_replace(['Rp. ', '.', ' ','RP.'], '', request('harga_beli'));
-        $harga_jual = str_replace(['Rp. ', '.', ' ' , 'RP.'], '', request('harga_jual'));
-        $fixjual = preg_replace('/[^\d]/', '', $harga_jual);
-        $fixbeli = preg_replace('/[^\d]/', '', $harga_beli);
         
         if(request('idBarang') == ''){
             $add = Barang::create([
                 'nama_barang' => request('nama_barang_tambah'), 
-                'harga_beli' => $fixbeli, 
-                'harga_jual' => $fixjual, 
+                'harga_beli' => request('harga_beli'), 
+                'harga_jual' => request('harga_jual'), 
+                'harga_eceran' => request('harga_eceran'), 
                 'stok' => 0, 
                 'satuan' => request('satuan'),  
                 'etalase_id' => request('etalase'), 
@@ -107,8 +108,9 @@ class BarangController extends Controller
         } else {
             $add = Barang::where('id' , request('idBarang'))->update([
                 'nama_barang' => request('nama_barang_tambah'), 
-                'harga_beli' => $fixbeli, 
-                'harga_jual' => $fixjual,
+                'harga_beli' => request('harga_beli'), 
+                'harga_jual' => request('harga_jual'), 
+                'harga_eceran' => request('harga_eceran'), 
                 'stok' => request('stok'), 
                 'satuan' => request('satuan'),  
                 'etalase_id' => request('etalase'), 
