@@ -19,10 +19,10 @@ class SupplierController extends Controller
                     ->addIndexColumn()
                     ->addColumn('nama_supplier', function($row){
                     return $row->nama_supplier;})
-                    ->addColumn('alamat', function($row){
-                    return $row->alamat;})
                     ->addColumn('no_hp', function($row){
-                    return $row->no_hp;})                  
+                    return $row->no_hp;})
+                    ->addColumn('alamat', function($row){
+                    return $row->alamat;})                  
                     ->addColumn('email', function($row){
                     return $row->email;})                  
                     ->addColumn('action', function($row){
