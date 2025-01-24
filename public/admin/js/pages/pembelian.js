@@ -165,12 +165,18 @@ function getBiaya(){
 }
 
    $(document).ready(function() {     
-    $("#bayar").on("input", function () {
+    $("#jumlah_piutang").on("input", function () {
       let value = $(this).val();
       if (value) {
           $(this).val(formatRupiah(value));
       }
-  });
+    });
+    $("#jumlah_piutang").on("input", function () {
+      let value = $(this).val();
+      if (value) {
+          $(this).val(formatRupiah(value));
+      }
+    });
   
     getPembelian();
     $("#nama_supplier").select2();

@@ -16,15 +16,15 @@
                        
                         <div class="col-md-6">
                             <label class="control-label">Jumlah Piutang</label>
-                            <input class="form-control form-white" id="jumlah_piutang" type="number" name="jumlah_piutang" readonly>
+                            <input class="form-control form-white" id="jumlah_piutang" type="text" name="jumlah_piutang" readonly>
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Total Pembayaran</label>
-                            <input class="form-control form-white" id="total_pembayaran_piutang" type="number" name="total_pembayaran_piutang">
+                            <input class="form-control form-white" id="total_pembayaran_piutang" type="text" name="total_pembayaran_piutang">
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Sisa Piutang</label>
-                            <input class="form-control form-white" id="sisa" type="number" name="sisa" readonly>
+                            <input class="form-control form-white" id="sisa" type="text" name="sisa" readonly>
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Tanggal Pembayaran</label>

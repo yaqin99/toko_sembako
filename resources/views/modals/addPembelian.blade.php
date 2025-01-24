@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Stok Pembelian</label>
-                            <input class="form-control form-white" id="stok" type="number" name="stok" >
+                            <input class="form-control form-white" id="stok" type="number" name="stok" oninput="getBiaya()" >
                         </div>
 
                         <div class="col-md-6">

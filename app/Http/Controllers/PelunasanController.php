@@ -69,7 +69,7 @@ class PelunasanController extends Controller
 
     public function Pelunasan(Request $request)
     {
-            $status = request('jumlah_piutang') - request('total_pembayaran_piutang');
+            $status = request('jumlah_piutang') - request('total_pembayaran');
             if ($status <= 0) {
                $bahas = 'Lunas';
             } else {
@@ -79,14 +79,14 @@ class PelunasanController extends Controller
             $edit = Pelunasan::where('id' , request('idPelunasan'))->update([
             'tempo_piutang' => request('tempo_piutang'), 
             'jumlah_piutang' => request('jumlah_piutang'), 
-            'total_pembayaran' => request('total_pembayaran_piutang'), 
+            'total_pembayaran' => request('total_pembayaran'), 
             'sisa_piutang' => $status, 
             'tanggal_pembayaran' => request('tanggal_pembayaran'), 
             'status' => $bahas , 
             ]);
               
-            Pembelian::where('id' , request('idPembeli'))->update([
-                'total_pembayaran' => request('total_pembayaran_piutang'), 
+        Pembelian::where('id' , request('idPembeli'))->update([
+                'total_pembayaran' => request('total_pembayaran'), 
             ]);
               
         }
