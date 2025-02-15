@@ -13,7 +13,7 @@ class EtalaseController extends Controller
         $pages = 'etalase' ; 
         if ($request->ajax()) {
             
-            $data = Etalase::all();
+            $data = Etalase::where('delete_mark' , 0)->get();
             
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -73,7 +73,13 @@ class EtalaseController extends Controller
     {
      
       $data = Etalase::find($id);
-      $deltete = Etalase::where('id' , $id)->delete();
+      $deltete = Etalase::where('id' , $id)->update([
+        'delete_mark' => 1
+      ]);
+
+      if($deltete){
+        return response()->json(['status' => 'success']);
+      }
     }
     
 }

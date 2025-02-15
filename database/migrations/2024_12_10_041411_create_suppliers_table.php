@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_hp');
             $table->string('alamat');
             $table->string('email');
+            $table->tinyInteger('delete_mark')->default(0);
             $table->timestamps();
         });
     }

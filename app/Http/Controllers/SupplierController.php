@@ -13,7 +13,7 @@ class SupplierController extends Controller
         $pages = 'supplier' ; 
         if ($request->ajax()) {
             
-            $data = Supplier::all();
+            $data = Supplier::where('delete_mark' , 0)->get();
             
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -82,7 +82,13 @@ class SupplierController extends Controller
     {
      
       $data = Supplier::find($id);
-      $deltete = Supplier::where('id' , $id)->delete();
+      $deltete = Supplier::where('id' , $id)->update([
+        'delete_mark' => 1
+      ]);
+
+      if($deltete){
+        return response()->json(['status' => 'success']);
+      }
     }
 
     

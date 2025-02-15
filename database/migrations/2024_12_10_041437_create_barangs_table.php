@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('harga_eceran');
             $table->integer('stok');
             $table->tinyInteger('satuan');
+            $table->tinyInteger('delete_mark')->default(0);
             $table->timestamps();
         });
     }

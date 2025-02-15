@@ -14,11 +14,11 @@ class PembelianController extends Controller
     public function index(Request $request)
     {
         $pages = 'pembelian' ; 
-        $suppliers = Supplier::all() ; 
-        $barangs = Barang::all() ; 
+        $suppliers = Supplier::where('delete_mark' , 0)->get() ; 
+        $barangs = Barang::where('delete_mark' , 0)->get() ; 
         if ($request->ajax()) {
             
-            $data = Pembelian::with(['barang' , 'supplier','pelunasan'])->get();
+            $data = Pembelian::where('delete_mark' , 0)->with(['barang' , 'supplier','pelunasan'])->get();
             
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -177,7 +177,13 @@ class PembelianController extends Controller
               'stok' => $stok->stok - $data->stok_pembelian , 
           ]
       );
-      $deltete = Pembelian::where('id' , $id)->delete();
+      $deltete = Pembelian::where('id' , $id)->update([
+        'delete_mark' => 1
+      ]);
+
+      if($deltete){
+        return response()->json(['status' => 'success']);
+      }
     }
 
 }

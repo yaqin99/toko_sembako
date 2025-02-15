@@ -26,12 +26,14 @@ function deleteEtalase(id){
                     id:id , 
                 },
                 success:function(response){
+                  if(response.status == 'success'){
                     swalWithBootstrapButtons.fire({
                         title: "Berhasil!",
                         text: "Data Etalase Telah Terhapus",
                         icon: "success"
                       });
                        getEtalase()
+                  }
                 },
                 error:function(error){
                     

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('total_pembayaran');
             $table->string('sisa_piutang');
             $table->string('status');
-        $table->timestamps();
+            $table->timestamps();
         });
     }
 

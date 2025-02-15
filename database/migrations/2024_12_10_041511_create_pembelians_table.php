@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('tanggal_pembelian');
             $table->tinyInteger('jenis_pembelian');
             $table->tinyInteger('tipe_pembayaran');
+            $table->tinyInteger('delete_mark')->default(0);
             $table->timestamps();
         });
     }

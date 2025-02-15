@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('etalases', function (Blueprint $table) {
             $table->id();
             $table->string('nama_etalase');
-          
+            $table->tinyInteger('delete_mark')->default(0);
             $table->timestamps();
         });
     }

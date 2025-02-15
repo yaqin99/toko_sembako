@@ -26,12 +26,14 @@ function deleteSupplier(id){
                     id:id , 
                 },
                 success:function(response){
+                  if(response.status == 'success'){
                     swalWithBootstrapButtons.fire({
                         title: "Berhasil!",
                         text: "Data Supplier Telah Terhapus",
                         icon: "success"
                       });
                        getSupplier()
+                  }
                 },
                 error:function(error){
                     

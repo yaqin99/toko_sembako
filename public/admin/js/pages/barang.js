@@ -26,12 +26,14 @@ function deleteBarang(id){
                     id:id , 
                 },
                 success:function(response){
+                  if(response.status == 'success'){
                     swalWithBootstrapButtons.fire({
                         title: "Berhasil!",
                         text: "Data Barang Telah Terhapus",
                         icon: "success"
                       });
                        getBarang()
+                  }
                 },
                 error:function(error){
                     
@@ -74,9 +76,9 @@ function getBarang(){
             return meta.row + meta.settings._iDisplayStart + 1;
            }  },
          {data: 'nama_barang', name: 'nama_barang'},
+         {data: 'harga_eceran', name: 'harga_eceran'},
          {data: 'harga_beli', name: 'harga_beli'},
          {data: 'harga_jual', name: 'harga_jual'},
-         {data: 'harga_eceran', name: 'harga_eceran'},
          {data: 'stok', name: 'stok'},
          {data: 'satuan', name: 'satuan'},
          {data: 'kategori', name: 'kategori'},
@@ -159,6 +161,29 @@ function formatRupiah(angka) {
     getBarang();
 
     $('#addBarangButton').click(function(e) {
+
+        if ($('#harga_jual').val() <= $('#harga_beli').val()) {
+          Swal.fire({
+            title: 'Oops...',
+            text: 'Harga Jual tidak boleh lebih kecil dari harga beli!',
+            icon: 'error'
+          });
+          return false;
+        } 
+        else if ($('#harga_jual').val() <= $('#harga_eceran').val()) {
+          Swal.fire({
+            title: 'Oops...',
+            text: 'Harga Jual tidak boleh lebih kecil dari harga eceran!',
+            icon: 'error'
+          });
+        }
+        else if ($('#harga_eceran').val() <= $('#harga_beli').val()) {
+          Swal.fire({
+            title: 'Oops...',
+            text: 'Harga Eceran tidak boleh lebih kecil dari harga beli!',
+            icon: 'error'
+          });
+        }
         e.preventDefault();
         $('#addBarang').modal({"backdrop": "static"})
     

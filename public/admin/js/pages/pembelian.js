@@ -26,12 +26,14 @@ function deletePembelian(id){
                     id:id , 
                 },
                 success:function(response){
+                  if(response.status == 'success'){
                     swalWithBootstrapButtons.fire({
                         title: "Berhasil!",
                         text: "Data Pembelian Telah Terhapus",
                         icon: "success"
                       });
                        getPembelian()
+                  }
                 },
                 error:function(error){
                     
@@ -127,9 +129,10 @@ function show(){
   let metode = $('#metode').val();
   if (metode == '2') {
     $('#piutang').attr('hidden',false);
+    let today = new Date().toISOString().split('T')[0];
+    $('#tempo').attr('min', today);
   } else {
     $('#piutang').attr('hidden',true);
-
   }
 }
 
@@ -183,7 +186,48 @@ function getBiaya(){
     $("#nama_barang").select2();
 
     $('#addPembelianButton').click(async function  (e) {
-        e.preventDefault();
+
+      if ($('#biaya').val() == '') {
+        Swal.fire({
+          title: 'Peringatan!',
+          text: 'Harga Beli tidak boleh kosong!',
+          icon: 'error'
+        });
+      
+        return false;
+      }
+      else if ($('#bayar').val() == '') {
+        Swal.fire({
+          title: 'Peringatan!',
+          text: 'Harga Beli tidak boleh kosong!',
+          icon: 'error'
+        }); 
+        return false;
+      }
+      else if ($('#bayar').val() < $('#biaya').val()) {
+        Swal.fire({
+          title: 'Peringatan!',
+          text: 'Harga Beli tidak boleh lebih kecil dari harga beli!',
+          icon: 'error'
+        });
+        return false;
+      }
+
+      if ($('#metode').val() == '2') {
+        let today = new Date();
+        let tempo = new Date($('#tempo').val());
+        
+        if (tempo < today) {
+          Swal.fire({
+            title: 'Peringatan!',
+            text: 'Tanggal tempo tidak boleh kurang dari hari ini!',
+            icon: 'error'
+          });
+          return false;
+        }
+      }
+
+      e.preventDefault();
         $('#addBarang').modal({"backdrop": "static"})
     
         //define variable

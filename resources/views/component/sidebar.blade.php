@@ -19,7 +19,7 @@
                  class="nav-text">Etalase</span></a>
             </li>
             <li><a href="/piutang" aria-expanded="false"><i class="bi bi-wallet2"></i><span
-                 class="nav-text">Piutang</span></a>
+                 class="nav-text">Hutang</span></a>
             </li>
         </ul>
     </div>

@@ -15,28 +15,30 @@ class BarangController extends Controller
     public function index(Request $request)
     {
         $pages = 'barang' ; 
-        $etalase = Etalase::all();
+        $etalase = Etalase::where('delete_mark' , 0)->get();
 
         if ($request->ajax()) {
             
-            $data = Barang::with('etalase')->get();
+            $data = Barang::where('delete_mark' , 0)->with('etalase')->get();
            
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('nama_barang', function($row){
                     return $row->nama_barang;})
+                    ->addColumn('harga_eceran', function($row){
+                      return 
+                      "Rp " . number_format($row->harga_eceran, 2, ",", ".").' / Pcs';
+                      })
                     ->addColumn('harga_beli', function($row){
+                      $satuan = $row->satuan == 1 ? 'Pcs' : 'Karton';
                     return 
-                    "Rp " . number_format($row->harga_beli, 2, ",", ".");
+                    "Rp " . number_format($row->harga_beli, 2, ",", ".").' / '.$satuan;
                     })
                     ->addColumn('harga_jual', function($row){
                     return 
-                    "Rp " . number_format($row->harga_jual, 2, ",", ".");
+                    "Rp " . number_format($row->harga_jual, 2, ",", ".").' / Pcs';
                     })
-                    ->addColumn('harga_eceran', function($row){
-                    return 
-                    "Rp " . number_format($row->harga_eceran, 2, ",", ".");
-                    })
+                    
                     ->addColumn('stok', function($row){
                     return $row->stok;})                  
                     ->addColumn('satuan', function($row){
@@ -127,7 +129,13 @@ class BarangController extends Controller
     {
      
       $data = Barang::find($id);
-      $deltete = Barang::where('id' , $id)->delete();
+      $deltete = Barang::where('id' , $id)->update([
+        'delete_mark' => 1
+      ]);
+
+      if($deltete){
+        return response()->json(['status' => 'success']);
+      }
     }
 
    
